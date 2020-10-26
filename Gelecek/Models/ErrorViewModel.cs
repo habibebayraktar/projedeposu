@@ -1,6 +1,5 @@
-using System;
-
-namespace Gelecek.Models
+﻿using System;
+namespace Gelecek
 {
     public class ErrorViewModel
     {
