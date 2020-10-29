@@ -13,6 +13,6 @@ namespace Gelecek.Models
         public string Eposta { get; set; }
         public string Sifre { get; set; }
 
-        public ICollection<Posta> gonderilenPostalar { get; set; }
+        public ICollection<Posta> GonderilenPostalar { get; set; }
     }
 }

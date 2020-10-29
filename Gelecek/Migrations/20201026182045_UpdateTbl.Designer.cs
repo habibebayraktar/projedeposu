@@ -4,14 +4,16 @@ using Gelecek.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Gelecek.Migrations
 {
     [DbContext(typeof(ZamanContext))]
-    partial class ZamanContextModelSnapshot : ModelSnapshot
+    [Migration("20201026182045_UpdateTbl")]
+    partial class UpdateTbl
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,7 +23,7 @@ namespace Gelecek.Migrations
 
             modelBuilder.Entity("Gelecek.Models.Posta", b =>
                 {
-                    b.Property<int>("PostaId")
+                    b.Property<int>("Postaid")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .UseIdentityColumn();
@@ -43,12 +45,12 @@ namespace Gelecek.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(75)");
 
-                    b.Property<int>("UyeId")
+                    b.Property<int>("Uyeid")
                         .HasColumnType("int");
 
-                    b.HasKey("PostaId");
+                    b.HasKey("Postaid");
 
-                    b.HasIndex("UyeId");
+                    b.HasIndex("Uyeid");
 
                     b.ToTable("TblPostalar");
                 });
@@ -70,7 +72,7 @@ namespace Gelecek.Migrations
 
                     b.Property<string>("Sifre")
                         .IsRequired()
-                        .HasColumnType("varchar(45)");
+                        .HasColumnType("varchar(15)");
 
                     b.Property<string>("Soyad")
                         .IsRequired()
@@ -87,7 +89,7 @@ namespace Gelecek.Migrations
                 {
                     b.HasOne("Gelecek.Models.Uye", "Kullanici")
                         .WithMany("GonderilenPostalar")
-                        .HasForeignKey("UyeId")
+                        .HasForeignKey("Uyeid")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

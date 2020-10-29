@@ -26,7 +26,12 @@ a {
   color: #1e1e1e;
   transition: all 0.5s ease-in-out;
 }
-
+.mrg {
+    margin-top: 150px;
+}
+.mrgtwo {
+    margin-bottom: 300px;
+}
 a:hover {
   color: #0078ff;
   text-decoration: none;

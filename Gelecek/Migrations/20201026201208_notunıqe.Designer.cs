@@ -4,14 +4,16 @@ using Gelecek.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Gelecek.Migrations
 {
     [DbContext(typeof(ZamanContext))]
-    partial class ZamanContextModelSnapshot : ModelSnapshot
+    [Migration("20201026201208_notunıqe")]
+    partial class notunıqe
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -70,15 +72,13 @@ namespace Gelecek.Migrations
 
                     b.Property<string>("Sifre")
                         .IsRequired()
-                        .HasColumnType("varchar(45)");
+                        .HasColumnType("varchar(15)");
 
                     b.Property<string>("Soyad")
                         .IsRequired()
                         .HasColumnType("varchar(75)");
 
                     b.HasKey("Uyeid");
-
-                    b.HasAlternateKey("Eposta");
 
                     b.ToTable("TblUyeler");
                 });

@@ -8,14 +8,14 @@ namespace Gelecek.Models
 {
     public class Posta
     {
-        public int Postaid { get; set; }
+        public int PostaId { get; set; }
         public string PostaAdresi { get; set; }
-        public int Uyeid { get; set; }
-        public DateTime iletilecekZaman { get; set; }
-        public DateTime nezamanYazildi { get; set; }
-        public string metin { get; set; }
+        public int UyeId { get; set; }
+        public DateTime IletilecekZaman { get; set; }
+        public DateTime NeZamanYazildi { get; set; }
+        public string Metin { get; set; }
         [AllowNull]
-        public string metinKonusu { get; set; }
+        public string MetinKonusu { get; set; }
         public Uye Kullanici { get; set; } //FK oluşturdu
     }
 }

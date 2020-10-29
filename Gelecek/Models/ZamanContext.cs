@@ -23,7 +23,7 @@ namespace Gelecek.Models
             modelBuilder.Entity<Uye>().Property(o => o.Ad).HasColumnType("varchar(50)").IsRequired();
             modelBuilder.Entity<Uye>().Property(o => o.Soyad).HasColumnType("varchar(75)").IsRequired();
             modelBuilder.Entity<Uye>().Property(o => o.Eposta).HasColumnType("varchar(75)").IsRequired();
-            modelBuilder.Entity<Uye>().Property(o => o.Sifre).HasColumnType("varchar(15)").IsRequired(); //sifre en fazla 15 karakter olsun.
+            modelBuilder.Entity<Uye>().Property(o => o.Sifre).HasColumnType("varchar(45)").IsRequired(); //sifre en fazla 15 karakter olsun.
             modelBuilder.Entity<Uye>().HasAlternateKey(o => o.Eposta); //unıqe olmasını sağladık
 
 
@@ -31,8 +31,8 @@ namespace Gelecek.Models
 
             modelBuilder.Entity<Posta>().ToTable("TblPostalar");
             modelBuilder.Entity<Posta>().Property(o => o.PostaAdresi).HasColumnType("varchar(75)").IsRequired();
-            modelBuilder.Entity<Posta>().Property(o => o.metin).HasColumnType("varchar(7000)").IsRequired();
-            modelBuilder.Entity<Posta>().Property(o => o.metinKonusu).HasColumnType("varchar(50)");
+            modelBuilder.Entity<Posta>().Property(o => o.Metin).HasColumnType("varchar(7000)").IsRequired();
+            modelBuilder.Entity<Posta>().Property(o => o.MetinKonusu).HasColumnType("varchar(50)");
 
         }
     }
