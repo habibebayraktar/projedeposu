@@ -18,9 +18,9 @@
                             <div class="form-group">
                                 <label for="InputPassword"><b>Password</b></label>
                                 <input type="password" asp-for="Sifre" class="form-control" id="InputPassword">
-                                <small><b><a href="#" class="text-primary">I forgot my password</a></b></small>
+                                <small><b><a href="/SignIn/ForgotPassword" class="text-primary">I forgot my password</a></b></small>
                             </div>
-                            <button type="submit" class="btn btn-outline-light mt-3 font-weight-bold btnTik"><b>Login</b></button>
+                            <button type="submit" class="btn btn-outline-light mt-3 font-weight-bold btnTik" ><b>Login</b></button>
                         </form>
 
                     </div>
@@ -40,7 +40,7 @@
             if (Email.val() == null || Email.val() == "" || Password.val() == null || Password.val() == "") {
                
                 event.preventDefault();
-                alert("Alanlar boş geçilemez");
+                alert("fields cannot be blank");
             }
 
 

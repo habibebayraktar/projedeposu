@@ -19,45 +19,48 @@
                                     </h5>
                                 </div>
                                 <form asp-action="Send" method="post">
-                                 
+
                                     <div class="form-group">
                                         <input type="email" class="form-control Postaadresi " id="exampleInputEmail1" asp-for="PostaAdresi" aria-describedby="emailHelp" placeholder="recipient">
-                                     </div>
+                                    </div>
                                     <div class="form-group">
                                         <input type="text" class="form-control name" placeholder="subject" asp-for="MetinKonusu">
                                     </div>
                                     <div class="form-group">
-                                        <textarea class="form-control Txt" rows="12" placeholder="write to the future"
-                                                  asp-for="Metin"></textarea>
+                                        <textarea class="form-control Txt" rows="12" placeholder="write to the future" maxlength="6850" asp-for="Metin"></textarea>
                                     </div>
                                     <label><b>DELIVER IN</b></label><br />
-                                    <input type="date" asp-for="IletilecekZaman" class="Sendtime">
-                                    @*tarihle birlikte saat de tutuluyor gönderimi sağlamakta kolaylık sağlarmı işimi mi zorlaştırır.Cihan hocaya sor??*@
+                                    <input type="datetime-local" asp-for="IletilecekZaman" class="Sendtime">
                                     <div class="text-center">
                                         <button type="submit" class="btn btn-outline-primary mt-3 Sendt"><b>Send to the future</b></button>
                                     </div>
                                 </form>
-                                </div>
+
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 </section>
+
 @section Scripts{
 
     <script>
-        var Postaadresi =$(".Postaadresi");
-        var Txt =$(".Txt");
+        var Postaadresi = $(".Postaadresi");
+        var Txt = $(".Txt");
         var Sendtime = $(".Sendtime");
         var Kontrol = new RegExp(/(.+)@@(.+){2,}\.(.+){2,}/);
-        
+
         $(".Sendt").click(function (event) {
             if (Postaadresi.val() == null || Postaadresi.val() == "" || Txt.val() == null || Txt.val() == "" || Sendtime.val() == null || Sendtime.val() == "" || !Kontrol.test(Postaadresi.val())) {
-                
+
                 event.preventDefault();
-                alert("Girilen alanlar boş veya uygun değil");
+                alert("fields entered are blank or not available");
+            }
+            else {
+                return confirm("It is not going to the past, not to the present, but to the future! Are you sure ??");
             }
         })
     </script>

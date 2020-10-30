@@ -1,9 +1,12 @@
 ﻿@model Uye
 @{
     ViewData["Title"] = "Kayıt ekranı";
-   
-
+    @if (TempData["durum"] != null)
+    {
+        <script>alert("@TempData["mesaj"]");</script>
+    }
 }
+
 <section class="paralax-mf footer-paralax bg-image sect-mt4 route" style="background-image: url(assets/img/overlay-bg.jpg)">
     <div class="overlay-mf"></div>
     <div class="container">
@@ -28,16 +31,16 @@
 
                                         <div class="form-group">
                                             <label><b>Surname</b></label>
-                                            <input type="text" class="form-control surname"placeholder="Surname" asp-for="Soyad">
+                                            <input type="text" class="form-control surname" placeholder="Surname" asp-for="Soyad">
                                         </div>
                                         <div class="form-group">
                                             <label><b>Email address</b></label>
-                                            <input type="email" class="form-control mail"placeholder="E-mail"  aria-describedby="emailHelp" asp-for="Eposta">
+                                            <input type="email" class="form-control mail" placeholder="E-mail" aria-describedby="emailHelp" asp-for="Eposta">
                                         </div>
                                         <div class="form-group">
                                             <label><b>Password</b></label>
-                                            <input type="password" class="form-control password" placeholder="Password" asp-for="Sifre">
-                                            <small id="pHelp" class="form-text text-muted"><b>The password must be at least 8 and at most 15 characters.</b></small>
+                                            <input type="password" maxlength="15" class="form-control password" placeholder="Password" asp-for="Sifre">
+                                            <small id="pHelp" class="form-text text-muted"><b>Password can be at least 8 and at most 15 characters.</b></small>
                                         </div>
                                         <div class="text-center"><button type="submit" class="btn btn-primary btnTik"><b>Register</b></button></div>
 
@@ -51,8 +54,9 @@
                                     </h5>
                                 </div>
                                 <div class="more-info">
-                                    <p class="lead">I'm writing this letter for my future because I don't want these memories to fade away over time. When he experiences too much, I want my future self to stop and take this letter and think. How do we go where we want to be if we don't know where we come from and who we are?
-                                       I want my future self to stop, take a deep breath and think…
+                                    <p class="lead">
+                                        I'm writing this letter for my future because I don't want these memories to fade away over time. When he experiences too much, I want my future self to stop and take this letter and think. How do we go where we want to be if we don't know where we come from and who we are?
+                                        I want my future self to stop, take a deep breath and think…
 
                                     </p>
                                 </div>
@@ -74,10 +78,10 @@
         var Kontrol = new RegExp(/(.+)@@(.+){2,}\.(.+){2,}/);
         $(".btnTik").click(function (event) {
 
-            if (Ad.val() == null || Ad.val() == "" || Soyad.val() == null || Soyad.val() == "" || Email.val() == null || Email.val() == "" || Password.val() == null || Password.val().length > 15 || Password.val().length < 8 || Password.val() == "" || !Kontrol.test(mail.val())) {
+            if (Ad.val() == null || Ad.val() == "" || Soyad.val() == null || Soyad.val() == "" || Email.val() == null || Email.val() == "" || Password.val() == null || Password.val() == "" || Password.val().length < 8 || !Kontrol.test(mail.val())) {
                 durum = false;
                 event.preventDefault();
-                alert("Girilen alanlar boş veya uygun değil");
+                alert("fields entered are blank or not available");
             }
 
 

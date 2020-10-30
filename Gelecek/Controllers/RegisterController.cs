@@ -10,40 +10,58 @@ namespace Gelecek.Controllers
 {
     public class RegisterController : Controller
     {
-        public IActionResult Index() //görevi view'ı bize getirmek.
+        public IActionResult Index()
         {
             return View();
         }
 
         [HttpPost]
-        public IActionResult Index(Uye GelenUye) //Uyeyi veri tabanına ekleyecek
+        public IActionResult Index(Uye GelenUye)
         {
-
-            var dönüt= Sifreleme.CalculateMd5Hash(GelenUye.Sifre);
-            GelenUye.Sifre = dönüt;
             using (ZamanContext ctx=new ZamanContext())
             {
-                
                 var toplu = ctx.Uyeler.ToList();
                 foreach (var item in toplu)
                 {
-                    if (item.Eposta==GelenUye.Eposta) //db de, girilen eposta kayıtlıysa kayıt işlemini gerçekleştirmiyor.Fakat bunun bilgisini kullanıcıya yanısatamadım ????
+                    if (item.Eposta == GelenUye.Eposta)
                     {
+                        TempData["mesaj"] = "email is already in use";
+                        TempData["durum"] = true;
                         return new RedirectResult("/Register/Index");
                     }
                 }
-                ctx.Uyeler.Add(GelenUye);
-                ctx.SaveChanges();
+                string mail = GelenUye.Eposta;
+                 SendMail.Onaymail(mail);
+                TempData["ad"] =GelenUye.Ad;
+                TempData["soyad"] = GelenUye.Soyad;
+                TempData["posta"] = GelenUye.Eposta;
+                TempData["sifre"] = GelenUye.Sifre;
                 return RedirectToAction("Onay");
-                
             }
+            
           
         }
         public IActionResult Onay()
         {
-            //REGİSTER butonuna tıkladığında e-mail onay sayfasına yönlendiremiyorum.
-            //e postaa onay sayfasına yönlendirilsem e posta onay kodlarını yazamıyorum.
             return View();
+        }
+        public IActionResult UyeKayit() //maildeki linke tıklandığında Üye kaydı yapılacak. 
+        {
+            
+            using (ZamanContext ctx = new ZamanContext())
+            {
+                Uye gelenUye = new Uye();
+                gelenUye.Ad = TempData["ad"].ToString();
+                gelenUye.Soyad = TempData["soyad"].ToString();
+                gelenUye.Eposta = TempData["posta"].ToString();
+                gelenUye.Sifre = TempData["sifre"].ToString();
+                var dönüt = Sifreleme.CalculateMd5Hash(gelenUye.Sifre);
+                gelenUye.Sifre = dönüt;
+                ctx.Uyeler.Add(gelenUye);
+                ctx.SaveChanges();
+                return RedirectToAction("Index","SignIn");
+
+            }
         }
     }
 }
