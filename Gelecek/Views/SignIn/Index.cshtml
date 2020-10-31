@@ -1,6 +1,18 @@
 ﻿@model Uye
 @{
     ViewData["Title"] = "Home Page";
+    @if (TempData["durum"] != null)
+    {
+        <script>alert("@TempData["mesaj"]");</script>
+    }
+    @if (TempData["durumtwo"] != null)
+    {
+        <script>alert("@TempData["msj"]");</script>
+    }
+    @if (TempData["onay"] != null)
+    {
+        <script>alert("@TempData["mesj"]");</script>
+    }
 }
 
 <div style="background-size: 100% 100%; background-color:black">
@@ -20,33 +32,28 @@
                                 <input type="password" asp-for="Sifre" class="form-control" id="InputPassword">
                                 <small><b><a href="/SignIn/ForgotPassword" class="text-primary">I forgot my password</a></b></small>
                             </div>
-                            <button type="submit" class="btn btn-outline-light mt-3 font-weight-bold btnTik" ><b>Login</b></button>
+                            <button type="submit" class="btn btn-outline-light mt-3 font-weight-bold btnTik"><b>Login</b></button>
                         </form>
 
                     </div>
                 </div>
             </div>
         </div>
-    </div><!-- End Intro Section -->
+    </div>
 </div>
 @section Scripts{
-    <script>
-        
+<script>
+
         var Email = $("#InputEmail");
         var Password = $("#InputPassword");
-        
+
         $(".btnTik").click(function (event) {
 
             if (Email.val() == null || Email.val() == "" || Password.val() == null || Password.val() == "") {
-               
+
                 event.preventDefault();
                 alert("fields cannot be blank");
             }
-
-
-
         });
-
-
-    </script>
+</script>
 }

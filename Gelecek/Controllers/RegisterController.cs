@@ -20,6 +20,7 @@ namespace Gelecek.Controllers
         {
             using (ZamanContext ctx=new ZamanContext())
             {
+                var dönüt = Sifreleme.CalculateMd5Hash(GelenUye.Sifre);
                 var toplu = ctx.Uyeler.ToList();
                 foreach (var item in toplu)
                 {
@@ -30,12 +31,14 @@ namespace Gelecek.Controllers
                         return new RedirectResult("/Register/Index");
                     }
                 }
+                GelenUye.Sifre = dönüt;
+                GelenUye.AktifMi = 0;
                 string mail = GelenUye.Eposta;
-                 SendMail.Onaymail(mail);
-                TempData["ad"] =GelenUye.Ad;
-                TempData["soyad"] = GelenUye.Soyad;
-                TempData["posta"] = GelenUye.Eposta;
-                TempData["sifre"] = GelenUye.Sifre;
+                ctx.Uyeler.Add(GelenUye);
+                ctx.SaveChanges();
+                int i=GelenUye.Uyeid;
+                string url = string.Format("<a href=\"www.zaman.com/Register/UyeKayit/{0}\"></a>",i); //Link olarak dönmüyor.
+                SendMail.Onaymail(mail,url);
                 return RedirectToAction("Onay");
             }
             
@@ -45,21 +48,24 @@ namespace Gelecek.Controllers
         {
             return View();
         }
-        public IActionResult UyeKayit() //maildeki linke tıklandığında Üye kaydı yapılacak. 
+        public IActionResult UyeKayit(int? id) 
         {
-            
             using (ZamanContext ctx = new ZamanContext())
             {
-                Uye gelenUye = new Uye();
-                gelenUye.Ad = TempData["ad"].ToString();
-                gelenUye.Soyad = TempData["soyad"].ToString();
-                gelenUye.Eposta = TempData["posta"].ToString();
-                gelenUye.Sifre = TempData["sifre"].ToString();
-                var dönüt = Sifreleme.CalculateMd5Hash(gelenUye.Sifre);
-                gelenUye.Sifre = dönüt;
-                ctx.Uyeler.Add(gelenUye);
-                ctx.SaveChanges();
-                return RedirectToAction("Index","SignIn");
+
+                var bulunan = ctx.Uyeler.Find(id);
+                var sonuc = ctx.Uyeler.Where(u => u.Uyeid == bulunan.Uyeid);
+                if (sonuc!=null)
+                {
+                    bulunan.AktifMi = 1;
+                    ctx.Uyeler.Add(bulunan);
+                    ctx.SaveChanges();
+
+                    return RedirectToAction("Index", "SignIn");
+                }
+                return View();
+               
+                
 
             }
         }

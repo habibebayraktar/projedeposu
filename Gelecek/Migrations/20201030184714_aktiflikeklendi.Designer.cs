@@ -4,14 +4,16 @@ using Gelecek.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Gelecek.Migrations
 {
     [DbContext(typeof(ZamanContext))]
-    partial class ZamanContextModelSnapshot : ModelSnapshot
+    [Migration("20201030184714_aktiflikeklendi")]
+    partial class aktiflikeklendi
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

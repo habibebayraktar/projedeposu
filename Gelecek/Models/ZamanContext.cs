@@ -23,7 +23,8 @@ namespace Gelecek.Models
             modelBuilder.Entity<Uye>().Property(o => o.Ad).HasColumnType("varchar(50)").IsRequired();
             modelBuilder.Entity<Uye>().Property(o => o.Soyad).HasColumnType("varchar(75)").IsRequired();
             modelBuilder.Entity<Uye>().Property(o => o.Eposta).HasColumnType("varchar(75)").IsRequired();
-            modelBuilder.Entity<Uye>().Property(o => o.Sifre).HasColumnType("varchar(45)").IsRequired(); //sifre en fazla 15 karakter olsun.
+            modelBuilder.Entity<Uye>().Property(o => o.Sifre).HasColumnType("varchar(45)").IsRequired(); 
+            //sifre en fazla 15 karakter olsun.
             modelBuilder.Entity<Uye>().HasAlternateKey(o => o.Eposta); //unıqe olmasını sağladık
 
 
