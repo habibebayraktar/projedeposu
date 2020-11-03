@@ -22,14 +22,12 @@ namespace Gelecek.Controllers
             {
                 var dönüt = Sifreleme.CalculateMd5Hash(GelenUye.Sifre);
                 var toplu = ctx.Uyeler.ToList();
-                foreach (var item in toplu)
+                var bulunanone = ctx.Uyeler.Where(u => u.Eposta == GelenUye.Eposta);
+                if (bulunanone.Count()!=0)
                 {
-                    if (item.Eposta == GelenUye.Eposta)
-                    {
-                        TempData["mesaj"] = "email is already in use";
-                        TempData["durum"] = true;
-                        return new RedirectResult("/Register/Index");
-                    }
+                    TempData["mesaj"] = "email is already in use";
+                    TempData["durum"] = true;
+                    return new RedirectResult("/Register/Index");
                 }
                 GelenUye.Sifre = dönüt;
                 GelenUye.AktifMi = 0;
@@ -37,8 +35,9 @@ namespace Gelecek.Controllers
                 ctx.Uyeler.Add(GelenUye);
                 ctx.SaveChanges();
                 int i=GelenUye.Uyeid;
-                string url = string.Format("<a href=\"www.zaman.com/Register/UyeKayit/{0}\"></a>",i); //Link olarak dönmüyor.
-                SendMail.Onaymail(mail,url);
+                //string url = string.Format("<a href=\"www.zaman.com/Register/UyeKayit/{0}\"></a>",i); //Link olarak dönmüyor.
+                string link = string.Format("<a href=\"http://www.timemail.org/Register/UyeKayit/{0}\">Onay için buraya tıklayınız.</a>", i);
+                SendMail.Onaymail(mail,link);
                 return RedirectToAction("Onay");
             }
             
@@ -54,19 +53,12 @@ namespace Gelecek.Controllers
             {
 
                 var bulunan = ctx.Uyeler.Find(id);
-                var sonuc = ctx.Uyeler.Where(u => u.Uyeid == bulunan.Uyeid);
-                if (sonuc!=null)
+                if (bulunan!=null)
                 {
                     bulunan.AktifMi = 1;
-                    ctx.Uyeler.Add(bulunan);
                     ctx.SaveChanges();
-
-                    return RedirectToAction("Index", "SignIn");
                 }
                 return View();
-               
-                
-
             }
         }
     }

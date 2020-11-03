@@ -1,7 +1,14 @@
 ﻿@model Posta
 @{
     ViewData["Title"] = "Privacy Policy";
-
+    @if (TempData["durum"] != null)
+    {
+        <script>alert("@TempData["msj"]");</script>
+    }
+    @if (TempData["drm"] != null)
+    {
+        <script>alert("@TempData["mesaj"]");</script>
+    }
 }
 
 <section class="paralax-mf footer-paralax bg-image sect-mt4 route" style="background-image: url(assets/img/overlay-bg.jpg)">

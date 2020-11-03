@@ -14,7 +14,8 @@ namespace Gelecek.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Data Source=DESKTOP-7JPVSVV\SQLEXPRESS;Initial Catalog=Time; Integrated Security= true");
+            //optionsBuilder.UseSqlServer(@"Data Source=.\MSSQLSERVER2017;Initial Catalog=timemail_Time;User=timemail_future;Password=future123. ");
+            optionsBuilder.UseSqlServer(@"Data Source=DESKTOP-7JPVSVV\SQLEXPRESS;Initial Catalog=Time;Integrated Security= true");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
